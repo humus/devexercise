@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="verifierlog" class="ch.qos.logback.core.FileAppender">
+        <file>verifier.log</file>
+        <!-- encoders are assigned the type
+        ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{MMM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="springlog" class="ch.qos.logback.core.FileAppender">
+        <file>verifier-spring.log</file>
+        <!-- encoders are assigned the type
+        ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{MMM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="warn" additivity="false">
+        <appender-ref ref="springlog" />
+    </logger>
+
+    <logger name="my.standalonebank" level="info" additivity="false">
+        <appender-ref ref="verifierlog" />
+    </logger>
+
+    <root level="warn">
+        <appender-ref ref="verifierlog" />
+    </root>
+</configuration>
