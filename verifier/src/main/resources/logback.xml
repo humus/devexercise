@@ -18,11 +18,19 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="warn" additivity="false">
+    <logger name="org.springframework" level="debug" additivity="false">
         <appender-ref ref="springlog" />
     </logger>
 
-    <logger name="my.standalonebank" level="info" additivity="false">
+    <logger name="my.standalonebank" level="debug" additivity="false">
+        <appender-ref ref="verifierlog" />
+    </logger>
+
+    <logger name="org.hibernate.SQL" level="debug" additivity="false">
+        <appender-ref ref="verifierlog" />
+    </logger>
+
+    <logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
         <appender-ref ref="verifierlog" />
     </logger>
 
