@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="shellinterfacelog" class="ch.qos.logback.core.FileAppender">
+        <file>shellinterface.log</file>
+        <!-- encoders are assigned the type
+        ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{MMM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="springlog" class="ch.qos.logback.core.FileAppender">
+        <file>shellinterface-spring.log</file>
+        <!-- encoders are assigned the type
+        ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{MMM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="info" additivity="false">
+        <appender-ref ref="springlog" />
+    </logger>
+
+    <logger name="my.standalonebank" level="debug" additivity="false">
+        <appender-ref ref="shellinterfacelog" />
+    </logger>
+
+    <logger name="org.hibernate.SQL" level="debug" additivity="false">
+        <appender-ref ref="shellinterfacelog" />
+    </logger>
+
+    <logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
+        <appender-ref ref="shellinterfacelog" />
+    </logger>
+
+    <root level="warn">
+        <appender-ref ref="shellinterfacelog" />
+    </root>
+</configuration>
+
