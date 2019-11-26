@@ -35,13 +35,11 @@ public class UserCommandProviderImpl implements UserCommandProvider {
     public BankUser promptUserInformation() {
         log.debug("asking for user information");
         BankUser bankUser = new BankUser();
-        bankUser.setPassword(promptComponent.promptPasswordConfirm("Type User Password",
-                    "Confirm User Password"));
-
-        log.info("bank user password is: {}", bankUser.getPassword());
+        String confirmedPassword = promptComponent.promptPasswordConfirm("Type User Password",
+                    "Confirm User Password");
+        bankUser.setPassword(encoder.encode(confirmedPassword));
 
         Account account = new Account();
-        account.setEncodedPassword(encoder.encode(bankUser.getPassword()));
         account.setFirstName(promptComponent.promptText("Type user first name"));
         account.setLastName(promptComponent.promptText("Type user last name"));
         account.setPin(promptComponent.promptPasswordConfirm("Type pin",

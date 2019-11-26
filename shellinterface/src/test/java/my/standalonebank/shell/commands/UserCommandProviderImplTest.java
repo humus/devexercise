@@ -37,6 +37,13 @@ public class UserCommandProviderImplTest {
     private UserCommandProvider provider = new UserCommandProviderImpl();
 
     @Test
+    public void testIsUserAbasent() {
+        when(userRepository.findByUsername("scott")).thenReturn(null);
+        boolean result = provider.isUserPresent("scott");
+        assertThat(result, is(false));
+    }
+
+    @Test
     public void testIsUserPresent() {
         when(userRepository.findByUsername("scott")).thenReturn(new BankUser());
         boolean result = provider.isUserPresent("scott");

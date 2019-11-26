@@ -16,7 +16,6 @@ public class Account implements Serializable {
     private String lastName;
     private String identifier;
     private String accountNumber;
-    private String encodedPassword;
     private BigDecimal balance;
     private String pin;
     /**
@@ -66,18 +65,6 @@ public class Account implements Serializable {
      */
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
-    }
-    /**
-     * @return the encodedPassword
-     */
-    public String getEncodedPassword() {
-        return encodedPassword;
-    }
-    /**
-     * @param encodedPassword the encodedPassword to set
-     */
-    public void setEncodedPassword(String encodedPassword) {
-        this.encodedPassword = encodedPassword;
     }
     /**
      * @return the balance
