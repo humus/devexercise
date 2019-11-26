@@ -1,5 +1,6 @@
 package my.standalonebank.model;
 
+import java.util.Set;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -28,6 +30,9 @@ public class BankUser implements Serializable {
 
     @Column
     private String password;
+
+    @OneToMany(mappedBy = "bankUser")
+    private Set<BankAccount> accounts;
 
     /**
      * @return the id
@@ -72,6 +77,20 @@ public class BankUser implements Serializable {
     }
 
 
+
+    /**
+     * @return the accounts
+     */
+    public Set<BankAccount> getAccounts() {
+        return accounts;
+    }
+
+    /**
+     * @param accounts the accounts to set
+     */
+    public void setAccounts(Set<BankAccount> accounts) {
+        this.accounts = accounts;
+    }
 
     public boolean equals(Object o) {
         if (o == null) { return false; }

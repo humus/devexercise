@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 import my.standalonebank.verifier.users.DatabaseUsers;
 
 @Component
-@Configuration
-@EntityScan("my.standalonebank.model")
-@EnableJpaRepositories("my.standalonebank.repository")
 public class InitializeBean {
 
     public static final Logger log = LoggerFactory.getLogger(InitializeBean.class);
+
+    private static final String ADMIN_USER = "admin";
+    private static final String SAMPLE_USER = "scott";
 
     @Autowired
     private DatabaseUsers users;
@@ -30,8 +30,9 @@ public class InitializeBean {
 
     public void initializeData() {
         log.info("saving user admin");
-        users.prepareUser("admin", adminPassword);
+        users.prepareUser(ADMIN_USER, adminPassword);
         users.prepareUser("scott", scottPassword);
+        users.prepareAccount("scott");
     }
 
 }
