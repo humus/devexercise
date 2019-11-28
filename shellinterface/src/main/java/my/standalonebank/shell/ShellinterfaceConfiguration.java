@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import my.standalonebank.shell.commands.prompt.PromptComponent;
@@ -18,11 +17,6 @@ import my.standalonebank.shell.commands.prompt.PromptComponentImpl;
 @EnableTransactionManagement
 @EntityScan("my.standalonebank.model")
 public class ShellinterfaceConfiguration {
-
-    @Bean
-    public BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public PromptComponent inputReader(@Lazy LineReader lineReader, @Lazy Terminal terminal) {

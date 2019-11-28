@@ -28,6 +28,9 @@ public class InitializeBean {
     @Value("${admin.password}")
     private String adminPassword;
 
+    @Value("${scott.pin}")
+    private String scottPin;
+
     public void initializeData() {
         log.info("saving user admin");
         users.prepareUser(ADMIN_USER, adminPassword);

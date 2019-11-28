@@ -10,4 +10,6 @@ public interface PromptComponent {
     String promptText(String message);
 
     String promptPasswordConfirm(String message, String confirmMessage);
+
+    void println(String message);
 }

@@ -22,7 +22,7 @@ public class BankUser implements Serializable {
     private static final long serialVersionUID = 4727330211750403668L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="users_seq")
     private Integer id;
 
     @Column

@@ -15,6 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import my.standalonebank.model.BankUser;
@@ -32,6 +35,9 @@ public class UserCommandProviderImplTest {
 
     @Spy
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    @Mock
+    private AuthenticationManager authenticationManager;
 
     @InjectMocks
     private UserCommandProvider provider = new UserCommandProviderImpl();
@@ -66,6 +72,17 @@ public class UserCommandProviderImplTest {
         inOrder.verify(promptComponent, times(1)).promptText(any(String.class));
 
         verify(encoder).encode(any(String.class));
+    }
+
+    @Test
+    public void testLoginUser() {
+        when(promptComponent.promptText(any(String.class)))
+                .thenReturn("scott");
+        when(promptComponent.promptPassword(any(String.class)))
+                .thenReturn("nothing");
+
+        provider.login();
+        verify(authenticationManager).authenticate(any(Authentication.class));
     }
 
 }

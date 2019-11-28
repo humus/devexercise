@@ -32,6 +32,17 @@ public class BankAccount implements Serializable {
     @Column
     private BigDecimal balance;
 
+    @Column
+    private String pin;
+
+    @Column(name="doc_id")
+    private String docId;
+
+    @Column(name="first_name")
+    private String firstName;
+
+    @Column(name="last_name")
+    private String lastName;
 
     /**
      * @return the id
@@ -88,5 +99,61 @@ public class BankAccount implements Serializable {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
-    
+
+    /**
+     * @return the pin
+     */
+    public String getPin() {
+        return pin;
+    }
+
+    /**
+     * @param pin the pin to set
+     */
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    /**
+     * @return the docId
+     */
+    public String getDocId() {
+        return docId;
+    }
+
+    /**
+     * @param docId the docId to set
+     */
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
 }

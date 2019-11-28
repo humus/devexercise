@@ -26,7 +26,7 @@
         <appender-ref ref="verifierlog" />
     </logger>
 
-    <logger name="org.hibernate.SQL" level="debug" additivity="false">
+    <logger name="org.hibernate" level="debug" additivity="false">
         <appender-ref ref="verifierlog" />
     </logger>
 

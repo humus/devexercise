@@ -28,7 +28,18 @@ public class PromptComponentImpl implements PromptComponent {
 
     @Override
     public String promptPassword(String message) {
-        throw new UnsupportedOperationException("not implemented");
+        log.debug("getting password for message: {}", message);
+        String answer = null;
+        int counter = 0;
+        while (StringUtils.isEmpty(answer)) {
+            if (counter >= 3) {
+                throw new ManyUserInputAttemptsException();
+            }
+            counter++;
+
+            answer = lineReader.readLine(String.format("%s: ", message), MASK);
+        }
+        return answer;
     }
 
     @Override
@@ -81,7 +92,8 @@ public class PromptComponentImpl implements PromptComponent {
         return password;
     }
 
-    private void println(String message) {
+    @Override
+    public void println(String message) {
         AttributedStringBuilder builder = new AttributedStringBuilder().append(message);
         PrintWriter out = terminal.writer();
         out.println(builder);

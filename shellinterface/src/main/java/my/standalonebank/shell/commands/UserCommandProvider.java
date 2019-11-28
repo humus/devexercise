@@ -1,12 +1,16 @@
 package my.standalonebank.shell.commands;
 
-import my.standalonebank.model.BankUser;
+import org.springframework.security.core.Authentication;
+
+import my.standalonebank.domain.Account;
 
 
 public interface UserCommandProvider {
 
     boolean isUserPresent(String username);
 
-    BankUser promptUserInformation();
+    Account promptUserInformation();
+
+    Authentication login();
 
 }
