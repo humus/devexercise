@@ -12,6 +12,7 @@ import org.springframework.shell.standard.ShellOption;
 
 import my.standalonebank.shell.util.SecurityUtil;
 import my.standalonebank.shell.exception.ShellException;
+import my.standalonebank.shell.services.AccountService;
 import my.standalonebank.shell.services.UserService;
 
 @ShellComponent
@@ -28,8 +29,11 @@ public class AccountCommands extends BaseCommand {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccountService accountService;
+
     @ShellMethodAvailability("userHasAccounts")
-    @ShellMethod("Let's an user to withdraw money")
+    @ShellMethod("Let's an user to withdraw from an account")
     public String withdraw(@ShellOption(value={"-a", "--account"}, defaultValue="")
             String accountNumber) {
 
@@ -46,7 +50,25 @@ public class AccountCommands extends BaseCommand {
 
         accountCommandsProvider.withdraw(accountNumber);
 
-        return String.format("Deposit to account %s was successful", account);
+        return String.format("Withdraw from account %s was successful", account);
+    }
+
+    @ShellMethodAvailability("userHasAccounts")
+    @ShellMethod("Let's an user to deposit to an account") 
+    public String deposit(@ShellOption(value={"-a", "--account"}, defaultValue="")
+            String accountNumber) {
+
+        if (StringUtils.isBlank(accountNumber)) {
+            throw new ShellException("provide account");
+        }
+
+        if (!accountService.accountExists(accountNumber)) {
+            throw new ShellException("Account does not exists");
+        }
+
+        log.debug("processing deposit to account {}", accountNumber);
+        accountCommandsProvider.deposit(accountNumber);
+        return String.format("Deposit to account %s was successful", accountNumber);
     }
 
 }

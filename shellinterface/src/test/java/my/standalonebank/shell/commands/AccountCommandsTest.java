@@ -1,6 +1,7 @@
 package my.standalonebank.shell.commands;
 
 import my.standalonebank.domain.Account;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doReturn;
@@ -13,6 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import my.standalonebank.shell.exception.ShellException;
+import my.standalonebank.shell.services.AccountService;
 import my.standalonebank.shell.services.UserService;
 import my.standalonebank.shell.util.SecurityUtil;
 
@@ -34,6 +36,9 @@ public class AccountCommandsTest {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    private AccountService accountService;
 
     @Test(expected = ShellException.class)
     public void testBadWithdraw() {
@@ -63,6 +68,16 @@ public class AccountCommandsTest {
         accountCommands.withdraw(ACCOUNT);
 
         verify(accountCommandsProvider).withdraw(ACCOUNT);
+    }
+
+    @Test
+    public void testDeposit() {
+        when(accountService.accountExists(any(String.class)))
+                .thenReturn(true);
+
+        accountCommands.deposit(ACCOUNT);
+
+        verify(accountCommandsProvider).deposit(any(String.class));
     }
 
     private Account createAccount() {
