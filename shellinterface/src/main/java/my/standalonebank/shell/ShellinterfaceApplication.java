@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ShellinterfaceApplication {
 
-    public static final Logger log = LoggerFactory.getLogger(ShellinterfaceApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(ShellinterfaceApplication.class);
 
     public static void main(String... args) {
         log.info("starting shell application");

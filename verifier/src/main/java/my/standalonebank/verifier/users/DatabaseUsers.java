@@ -18,7 +18,7 @@ import my.standalonebank.repository.UserRepository;
 @Service
 public class DatabaseUsers {
 
-    public static final Logger log = LoggerFactory.getLogger(DatabaseUsers.class);
+    private static final Logger log = LoggerFactory.getLogger(DatabaseUsers.class);
 
     @Autowired
     private AccountRepository accountRepository;

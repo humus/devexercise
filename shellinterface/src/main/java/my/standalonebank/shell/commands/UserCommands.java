@@ -23,7 +23,7 @@ import my.standalonebank.shell.util.SecurityUtil;
 @ShellComponent
 public class UserCommands {
 
-    public static final Logger log = LoggerFactory.getLogger(UserCommands.class);
+    private static final Logger log = LoggerFactory.getLogger(UserCommands.class);
 
     @Autowired
     private UserCommandProvider userCommandProvider;

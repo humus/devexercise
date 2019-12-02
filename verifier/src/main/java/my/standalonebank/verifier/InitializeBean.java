@@ -14,7 +14,7 @@ import my.standalonebank.verifier.users.DatabaseUsers;
 @Component
 public class InitializeBean {
 
-    public static final Logger log = LoggerFactory.getLogger(InitializeBean.class);
+    private static final Logger log = LoggerFactory.getLogger(InitializeBean.class);
 
     private static final String ADMIN_USER = "admin";
     private static final String SAMPLE_USER = "scott";

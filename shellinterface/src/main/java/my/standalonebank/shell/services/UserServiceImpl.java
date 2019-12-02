@@ -19,7 +19,7 @@ import my.standalonebank.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
-    public static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private BCryptPasswordEncoder encoder;

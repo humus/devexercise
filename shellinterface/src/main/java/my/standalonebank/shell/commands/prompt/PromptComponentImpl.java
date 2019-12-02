@@ -13,7 +13,7 @@ import my.standalonebank.exception.ManyUserInputAttemptsException;
 
 public class PromptComponentImpl implements PromptComponent {
 
-    public static final Logger log = LoggerFactory.getLogger(PromptComponentImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(PromptComponentImpl.class);
 
     private static final int MAX_TRIES = 3;
     private static final Character MASK = '*';

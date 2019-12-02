@@ -19,7 +19,7 @@ import my.standalonebank.shell.services.UserService;
 @RunWith(MockitoJUnitRunner.class)
 public class UserCommandsTest {
 
-    public static final Logger log = LoggerFactory.getLogger(UserCommandsTest.class);
+    private static final Logger log = LoggerFactory.getLogger(UserCommandsTest.class);
 
     @Mock
     private UserCommandProvider userCommandProvider;

@@ -12,7 +12,7 @@ import my.standalonebank.repository.UserRepository;
 
 public class LocalUserDetailsService implements UserDetailsService {
 
-    public static final Logger log = LoggerFactory.getLogger(LocalUserDetailsService.class);
+    private static final Logger log = LoggerFactory.getLogger(LocalUserDetailsService.class);
 
     private UserRepository userRepository;
 

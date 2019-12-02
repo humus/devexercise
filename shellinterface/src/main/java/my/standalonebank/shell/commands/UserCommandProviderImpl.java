@@ -18,7 +18,7 @@ import my.standalonebank.shell.commands.prompt.PromptComponent;
 @Service
 public class UserCommandProviderImpl implements UserCommandProvider {
 
-    public static final Logger log = LoggerFactory.getLogger(UserCommandProviderImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(UserCommandProviderImpl.class);
 
     @Autowired
     private UserRepository repository;

@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class VerifierApplication implements CommandLineRunner {
 
-    public static final Logger log = LoggerFactory.getLogger(VerifierApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(VerifierApplication.class);
 
     @Autowired
     private InitializeBean initializeBean;

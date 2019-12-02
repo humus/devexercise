@@ -17,7 +17,7 @@ import my.standalonebank.shell.services.UserService;
 @ShellComponent
 public class AccountCommands extends BaseCommand {
 
-    public static final Logger log = LoggerFactory.getLogger(AccountCommands.class);
+    private static final Logger log = LoggerFactory.getLogger(AccountCommands.class);
 
     @Autowired
     private SecurityUtil securityUtil;
