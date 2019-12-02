@@ -40,13 +40,13 @@ public class DatabaseUsers {
     }
 
     @Transactional
-    public void prepareAccount(String username) {
+    public void prepareAccount(String username, BankAccount bankAccount) {
         BankUser user = userRepository.findByUsername(username);
 
         Set<BankAccount> accounts = user.getAccounts();
 
         if (empty(accounts)) {
-            addAccount(user);
+            addAccount(user, bankAccount);
         }
     }
 
@@ -57,17 +57,16 @@ public class DatabaseUsers {
         return aSet.isEmpty();
     }
 
-    private void addAccount(BankUser user) {
+    private void addAccount(BankUser user, BankAccount bankAccount) {
         if (user.getAccounts() == null) {
             user.setAccounts(new HashSet<BankAccount>());
         }
         Set<BankAccount> accounts = user.getAccounts();
-        BankAccount account = new BankAccount();
-        account.setBankUser(user);
-        accounts.add(account);
-        account.setBalance(new BigDecimal(0d));
+        bankAccount.setBankUser(user);
+        accounts.add(bankAccount);
+        bankAccount.setBalance(new BigDecimal(0d));
 
-        accountRepository.save(account);
+        accountRepository.save(bankAccount);
     }
 
     private BankUser createUser(String username, String password) {

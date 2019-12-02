@@ -21,3 +21,14 @@ CREATE TABLE IF NOT EXISTS bank_accounts (
     constraint unique_account_number unique(account_number),
     constraint fk_user foreign key (user_id) references bank_users
 );
+
+CREATE SEQUENCE IF NOT EXISTS transactions_seq;
+
+CREATE TABLE IF NOT EXISTS bank_transactions (
+    id int default next value for transactions_seq primary key,
+    account_id int not null,
+    user_id int not null,
+    created_at timestamp with time zone,
+    constraint fk_account_tx foreign key (account_id) references bank_accounts,
+    constraint fk_user_tx foreign key (user_id) references bank_users
+);

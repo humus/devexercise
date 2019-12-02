@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -32,6 +33,19 @@ public class DatabaseUsersTest {
     @Mock
     private UserRepository repository;
 
+    private BankAccount scottAccount;
+
+    @Before
+    public void setUp() {
+        String username = "scott";
+        scottAccount = new BankAccount();
+        scottAccount.setFirstName(username);
+        scottAccount.setLastName("pilgrim");
+        scottAccount.setPin("$2a$10$pLCdKXe59KhhnQfnnn0Vq.n4k3Bi1UkhiBdBtu4nVyyhUSdGhZXRK");
+        scottAccount.setDocId("432143214321");
+
+    }
+
     @Test
     public void testNotHavingAdminUser() {
         when(repository.findByUsername("admin")).thenReturn(null);
@@ -48,9 +62,10 @@ public class DatabaseUsersTest {
 
     @Test
     public void testUserAccountExists() {
+
         String username = "scott";
         when(repository.findByUsername(username)).thenReturn(createBankUserAccount());
-        users.prepareAccount(username);
+        users.prepareAccount(username, scottAccount);
 
         verify(repository).findByUsername(username);
         verify(accountRepository, never()).save(isA(BankAccount.class));
@@ -60,7 +75,7 @@ public class DatabaseUsersTest {
     public void testUserAccountNotExists() {
         String username = "scott";
         when(repository.findByUsername(username)).thenReturn(createBankUser());
-        users.prepareAccount(username);
+        users.prepareAccount(username, scottAccount);
 
         verify(repository).findByUsername(username);
         verify(accountRepository).save(isA(BankAccount.class));

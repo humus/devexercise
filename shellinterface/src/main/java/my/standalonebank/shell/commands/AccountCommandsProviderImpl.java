@@ -1,20 +1,20 @@
 package my.standalonebank.shell.commands;
 
 import java.math.BigDecimal;
-
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import my.standalonebank.model.BankAccount;
 import my.standalonebank.shell.commands.prompt.PromptComponent;
 import my.standalonebank.shell.exception.ShellException;
 import my.standalonebank.shell.services.AccountService;
 
+@Component
 public class AccountCommandsProviderImpl implements AccountCommandsProvider {
 
     private static final Logger log = LoggerFactory.getLogger(AccountCommandsProviderImpl.class);
