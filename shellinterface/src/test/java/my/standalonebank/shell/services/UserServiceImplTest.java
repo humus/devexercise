@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 import java.util.Map;
@@ -33,6 +34,9 @@ import my.standalonebank.repository.AccountRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
 
+    private static final String ALICE = "alice";
+    private static final String ACCOUNT_NUMBER = "0000000001";
+
     @InjectMocks
     private UserService userService = new UserServiceImpl();
 
@@ -55,13 +59,13 @@ public class UserServiceImplTest {
 
     @Before
     public void setup() {
-        data = Stream.of(entry("username", "alice"),
+        data = Stream.of(entry("username", ALICE),
                 entry("password", "Tiger360"),
                 entry("pin", "0000"),
-                entry("identifier", "112233344"),
+                entry("identifier", ACCOUNT_NUMBER),
                 entry("firstName", "Alice"),
                 entry("lastName", "Graham"))
-            .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
     }
 
     @Test
@@ -83,6 +87,23 @@ public class UserServiceImplTest {
         assertThat(bankAccount.getFirstName(), is(data.get("firstName")));
         assertThat(bankAccount.getLastName(), is(data.get("lastName")));
         assertThat(bankAccount.getBalance(), is(notNullValue()));
+    }
+
+    @Test
+    public void testGetAccountByUserName() {
+        when(accountRepository.findByAccountNumber(ACCOUNT_NUMBER))
+                .thenReturn(createBankAccount());
+        userService.getAccountByUserName(ALICE, ACCOUNT_NUMBER);
+        verify(accountRepository).findByAccountNumber(ACCOUNT_NUMBER);
+    }
+
+    private BankAccount createBankAccount() {
+        BankAccount bankAccount = new BankAccount();
+        BankUser bankUser = new BankUser();
+        bankUser.setUsername(ALICE);
+        bankAccount.setBankUser(bankUser);
+
+        return bankAccount;
     }
 
     private Account createAccount() {

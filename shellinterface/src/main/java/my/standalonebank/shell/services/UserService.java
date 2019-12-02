@@ -7,4 +7,6 @@ public interface UserService {
 
     BankUser saveUserAccount(Account account);
 
+    Account getAccountByUserName(String username, String accountNumber);
+
 }

@@ -2,6 +2,8 @@ package my.standalonebank.shell.services;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,20 @@ public class UserServiceImpl implements UserService {
         accountRepository.save(bankAccount);
 
         return bankUser;
+    }
+
+    @Override
+    public Account getAccountByUserName(String username, String accountNumber) {
+        BankAccount bankAccount = accountRepository.findByAccountNumber(accountNumber);
+        BankUser user = bankAccount.getBankUser();
+
+        Account account = null;
+
+        if (StringUtils.equals(username, user.getUsername())) {
+            account = new Account();
+        }
+
+        return account;
     }
 
 }

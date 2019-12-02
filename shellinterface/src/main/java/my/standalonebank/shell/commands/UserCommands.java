@@ -18,6 +18,7 @@ import org.springframework.shell.standard.ShellOption;
 
 import my.standalonebank.exception.UserAlreadyExistsException;
 import my.standalonebank.domain.Account;
+import my.standalonebank.shell.util.SecurityUtil;
 
 @ShellComponent
 public class UserCommands {
@@ -29,6 +30,9 @@ public class UserCommands {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SecurityUtil securityUtil;
 
     @ShellMethodAvailability("isUserAdmin")
     @ShellMethod("Command to create a user")
@@ -55,9 +59,7 @@ public class UserCommands {
 
     public Availability isUserAdmin() {
         log.info("isUserAdmin");
-        Authentication authentication = SecurityContextHolder
-                .getContext()
-                .getAuthentication();
+        Authentication authentication = securityUtil.getAuthentication();
 
         log.debug("authentication: {}", authentication);
         boolean authenticated = false;

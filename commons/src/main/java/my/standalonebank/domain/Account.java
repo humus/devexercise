@@ -15,6 +15,7 @@ public class Account implements Serializable {
     private String identifier;
     private String firstName;
     private String lastName;
+    private String accountNumber;
     /**
      * @return the username
      */
@@ -88,6 +89,18 @@ public class Account implements Serializable {
         this.lastName = lastName;
     }
 
+    /**
+     * @return the accountNumber
+     */
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    /**
+     * @param accountNumber the accountNumber to set
+     */
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
     @Override
     public boolean equals(Object o) {
         if (o == null) { return false; }
@@ -98,6 +111,7 @@ public class Account implements Serializable {
                 .append(this.identifier, other.identifier)
                 .append(this.firstName, other.firstName)
                 .append(this.lastName, other.lastName)
+                .append(this.accountNumber, other.accountNumber)
                 .isEquals();
     }
 

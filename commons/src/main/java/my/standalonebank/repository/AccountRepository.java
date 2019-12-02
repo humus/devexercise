@@ -7,4 +7,6 @@ import my.standalonebank.model.BankAccount;
 
 @Repository
 public interface AccountRepository extends JpaRepository<BankAccount, Integer> {
+
+    BankAccount findByAccountNumber(String accountNumber);
 }
