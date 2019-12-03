@@ -50,7 +50,7 @@ public class AccountCommands extends BaseCommand {
 
         accountCommandsProvider.withdraw(accountNumber);
 
-        return String.format("Withdraw from account %s was successful", account);
+        return String.format("Withdraw from account %s was successful", accountNumber);
     }
 
     @ShellMethodAvailability("userHasAccounts")

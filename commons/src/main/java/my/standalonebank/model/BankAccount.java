@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "bank_accounts")
+@Table(name="bank_accounts")
 public class BankAccount implements Serializable {
 
     private static final long serialVersionUID = 6996710188580304391L;

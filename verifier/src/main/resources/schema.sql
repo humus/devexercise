@@ -28,7 +28,9 @@ CREATE TABLE IF NOT EXISTS bank_transactions (
     id int default next value for transactions_seq primary key,
     account_id int not null,
     user_id int not null,
+    description varchar(255),
     created_at timestamp with time zone,
+    amount decimal(12, 2) not null default 0,
     constraint fk_account_tx foreign key (account_id) references bank_accounts,
     constraint fk_user_tx foreign key (user_id) references bank_users
 );
