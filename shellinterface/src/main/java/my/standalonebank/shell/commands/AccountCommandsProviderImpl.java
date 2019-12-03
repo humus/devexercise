@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import my.standalonebank.model.BankAccount;
@@ -20,6 +21,9 @@ public class AccountCommandsProviderImpl implements AccountCommandsProvider {
     private static final Logger log = LoggerFactory.getLogger(AccountCommandsProviderImpl.class);
 
     private static final Pattern DIGITS = Pattern.compile("\\d{10}");
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
     private AccountService accountService;
@@ -54,6 +58,8 @@ public class AccountCommandsProviderImpl implements AccountCommandsProvider {
             throw new ShellException("Withdraw Ammount is higher than current balance");
         }
 
+        promptPIN(bankAccount);
+
         accountService.withdraw(bankAccount, withdrawAmount);
         return "Successfully withdrawn";
     }
@@ -66,6 +72,22 @@ public class AccountCommandsProviderImpl implements AccountCommandsProvider {
 
         accountService.deposit(bankAccount, depositAmount);
         return "Successfuly deposited";
+    }
+
+    private void promptPIN(BankAccount bankAccount) {
+        String typedNip = promptComponent.promptPassword("Type your nip before continue");
+        boolean response = encoder.matches(typedNip, bankAccount.getPin());
+        int counter = 0;
+        while (!response) {
+            promptComponent.println("Wrong nip entered");
+            promptComponent.println("Type nip before continue");
+            typedNip = promptComponent.promptPassword("Type your nip before continue");
+            response = encoder.matches(typedNip, bankAccount.getPin());
+            counter++;
+            if (counter >= 3) {
+                throw new ShellException("You have entered wrong nip too many times, exiting");
+            }
+        }
     }
 
     private BigDecimal promptAmount(String message) {

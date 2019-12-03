@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -13,7 +14,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import my.standalonebank.model.BankAccount;
 import my.standalonebank.shell.commands.prompt.PromptComponent;
@@ -32,6 +35,9 @@ public class AccountCommandsProviderImplTest {
     @Mock
     private PromptComponent promptComponent;
 
+    @Spy
+    private BCryptPasswordEncoder encoder;
+
     @Test
     public void testNoAccountNumber() {
         accountCommandsProvider.withdraw("");
@@ -46,7 +52,12 @@ public class AccountCommandsProviderImplTest {
         BigDecimal amount = new BigDecimal(amountStr);
 
         when(promptComponent.promptText(any(String.class)))
-            .thenReturn(amountStr);
+                .thenReturn(amountStr);
+
+        when(promptComponent.promptPassword(any(String.class)))
+                .thenReturn("000")
+                .thenReturn("000")
+                .thenReturn("0000");
 
         BankAccount bankAccount = createBankAccount(accountNumber, amount);
         when(accountService.getAccount(accountNumber))
@@ -54,6 +65,8 @@ public class AccountCommandsProviderImplTest {
 
         accountCommandsProvider.withdraw(accountNumber);
 
+        verify(promptComponent, times(3)).promptPassword(any(String.class));
+        verify(encoder, times(3)).matches(any(String.class), any(String.class));
         verify(accountService).withdraw(same(bankAccount), eq(amount));
     }
 
@@ -100,6 +113,7 @@ public class AccountCommandsProviderImplTest {
         BankAccount bankAccount = new BankAccount();
         bankAccount.setBalance(amount);
         bankAccount.setAccountNumber(accountNumber);
+        bankAccount.setPin("$2a$10$pLCdKXe59KhhnQfnnn0Vq.n4k3Bi1UkhiBdBtu4nVyyhUSdGhZXRK");
         return bankAccount;
     }
 }
