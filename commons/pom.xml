@@ -12,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springboot.version>2.1.10.RELEASE</springboot.version>
-        <commons.lang.version>3.8.1</commons.lang.version>
+        <commons.lang.version>3.18.0</commons.lang.version>
     </properties>
 
     <dependencies>
